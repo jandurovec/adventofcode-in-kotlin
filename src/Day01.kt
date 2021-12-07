@@ -3,11 +3,11 @@ fun main() {
 
     fun part2(input: List<Int>) = part1(input.windowed(3, 1).map { it.sum() })
 
-    val testInput = readNumInput("Day01_test")
+    val testInput = readInputAsIntList("Day01_test")
     check(part1(testInput) == 7L)
     check(part2(testInput) == 5L)
 
-    val input = readNumInput("Day01")
+    val input = readInputAsIntList("Day01")
     println(part1(input))
     println(part2(input))
 }

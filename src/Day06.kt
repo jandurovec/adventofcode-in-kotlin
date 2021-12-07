@@ -1,5 +1,5 @@
 fun main() {
-    fun parseInput(name: String) = readInput(name).first().split(',').map { it.toInt() }
+    fun parseInput(name: String) = readInput(name).first().toIntList()
 
     // count of offsprings of fish with counter = 0 after N days (indexed by N)
     val offsprings = mutableMapOf<Int, Long>()

@@ -10,9 +10,14 @@ fun readInput(name: String) = File("src", "$name.txt").readLines()
 /**
  * Reads lines from the given input txt file as numbers.
  */
-fun readNumInput(name: String) = readInput(name).map { it.toInt(10) }
+fun readInputAsIntList(name: String) = readInput(name).map { it.toInt() }
 
 /**
  * Converts string to md5 hash.
  */
 fun String.md5(): String = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray())).toString(16)
+
+/**
+ * Converts string to list of ints
+ */
+fun String.toIntList(delimiter: Char = ',') = split(delimiter).map { it.toInt() }

@@ -33,7 +33,7 @@ fun main() {
     }
 
     fun parseInput(input: List<String>): Pair<List<Int>, List<BingoBoard>> {
-        val draw = input[0].split(',').map { it.toInt() }
+        val draw = input.first().toIntList()
         return draw to input.subList(1, input.size).windowed(boardSize + 1, boardSize + 1)
             .map { BingoBoard(it.subList(1, boardSize + 1)) }
     }
