@@ -21,3 +21,8 @@ fun String.md5(): String = BigInteger(1, MessageDigest.getInstance("MD5").digest
  * Converts string to list of ints
  */
 fun String.toIntList(delimiter: Char = ',') = split(delimiter).map { it.toInt() }
+
+/**
+ * Checks if string is lowercase
+ */
+fun String.isLowerCase() = all(Char::isLowerCase)
