@@ -9,52 +9,30 @@ fun main() {
             map
         }
 
-    fun findPaths1(path: List<String>, map: Map<String, List<String>>, forbidden: Set<String>): Int {
-        val last = path.last()
-        return if (last == END) {
+    fun findPaths(
+        pos: String,
+        map: Map<String, List<String>>,
+        forbidden: Set<String> = setOf(pos),
+        canVisitForbidden: Boolean = false
+    ): Int {
+        return if (pos == END) {
             1
         } else {
-            map[last]!!.sumOf { node ->
-                if (forbidden.contains(node)) {
-                    0
+            map[pos]!!.sumOf { node ->
+                if (!forbidden.contains(node)) {
+                    findPaths(node, map, if (node.isLowerCase()) forbidden.plus(node) else forbidden, canVisitForbidden)
+                } else if (canVisitForbidden && node != START) {
+                    findPaths(node, map, forbidden, false)
                 } else {
-                    val newForbidden = when {
-                        node.isLowerCase() -> forbidden.plus(node)
-                        else -> forbidden
-                    }
-                    findPaths1(path + node, map, newForbidden)
+                    0
                 }
             }
         }
     }
 
-    fun findPaths2(path: List<String>, map: Map<String, List<String>>, forbidden: Set<String>): Int {
-        val last = path.last()
-        if (last == END) {
-            return 1
-        } else {
-            val lowercaseCounts = path.filter { it.isLowerCase() }.groupingBy { it }.eachCount()
-            return map[last]!!.sumOf { node ->
-                if (forbidden.contains(node)) {
-                    0
-                } else {
-                    val newForbidden = when {
-                        node.isLowerCase() -> when {
-                            lowercaseCounts.containsKey(node) -> forbidden.plus(lowercaseCounts.keys)
-                            lowercaseCounts.filterValues { it == 2 }.isNotEmpty() -> forbidden.plus(node)
-                            else -> forbidden
-                        }
-                        else -> forbidden
-                    }
-                    findPaths2(path + node, map, newForbidden)
-                }
-            }
-        }
-    }
+    fun part1(input: List<String>): Int = findPaths(START, parseInput(input))
 
-    fun part1(input: List<String>): Int = findPaths1(arrayListOf(START), parseInput(input), setOf(START))
-
-    fun part2(input: List<String>): Int = findPaths2(arrayListOf(START), parseInput(input), setOf(START))
+    fun part2(input: List<String>): Int = findPaths(START, parseInput(input), canVisitForbidden = true)
 
     val testInput1 = readInput("Day12_test1")
     check(part1(testInput1) == 10)
