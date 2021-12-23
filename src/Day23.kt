@@ -2,6 +2,7 @@ fun main() {
     val costs = mapOf('A' to 1, 'B' to 10, 'C' to 100, 'D' to 1000)
     val allowedStops = setOf(1, 2, 4, 6, 8, 10, 11)
 
+    data class Move(val from: Pair<Int, Int>, val to: Pair<Int, Int>, val cost: Int)
     class Burrow(val plan: Array<CharArray>, val amphipods: List<Pair<Int, Int>>) {
         fun homeColumn(name: Char) = 3 + (name.code - 'A'.code) * 2
         fun homeOpen(name: Char): Boolean {
@@ -18,7 +19,7 @@ fun main() {
 
         fun toMove(): List<Pair<Int, Int>> = amphipods.filter { needsToMove(it.first, it.second) }
 
-        fun destinations(x: Int, y: Int): List<Pair<Pair<Int, Int>, Int>> {
+        fun destinations(x: Int, y: Int): List<Move> {
             val pod = plan[y][x]
             val homeColumn = homeColumn(pod)
             val homePos = homeSpot(homeColumn)
@@ -32,10 +33,11 @@ fun main() {
                 val pathLength = manhattanDist(x, y, x, 1) +
                         manhattanDist(x, 1, homeColumn, 1) +
                         manhattanDist(homeColumn, 1, homeColumn, homePos)
-                return listOf((homeColumn to homePos) to (costs[pod]!! * pathLength))
+                return listOf(Move(x to y, homeColumn to homePos, costs[pod]!! * pathLength))
+            } else if (y == 1) {
+                return emptyList()
             } else {
-                return if (y == 1) emptyList()
-                else buildList {
+                return buildList {
                     var curY = y
                     // go to hallway first
                     while (curY > 1) {
@@ -50,7 +52,7 @@ fun main() {
                         while (plan[1][curX] == '.') {
                             steps++
                             if (allowedStops.contains(curX)) {
-                                add((curX to 1) to costs[pod]!! * steps)
+                                add(Move(x to y, curX to 1, costs[pod]!! * steps))
                             }
                             curX += dx
                         }
@@ -60,19 +62,15 @@ fun main() {
         }
     }
 
-    fun parseInput(name: String): Burrow {
-        val data = readInput(name)
-        val amphipods = buildList {
-            data.forEachIndexed { y, line ->
-                line.forEachIndexed { x, c ->
-                    if (c.isUpperCase()) {
-                        this.add(x to y)
-                    }
+    fun parseInput(input: List<String>) = Burrow(input.map { it.toCharArray() }.toTypedArray(), buildList {
+        input.forEachIndexed { y, line ->
+            line.forEachIndexed { x, c ->
+                if (c.isUpperCase()) {
+                    this.add(x to y)
                 }
             }
         }
-        return Burrow(data.map { it.toCharArray() }.toTypedArray(), amphipods)
-    }
+    })
 
     fun solve(burrow: Burrow, energy: Int = 0, best: Int = Int.MAX_VALUE): Int {
         if (energy > best) {
@@ -83,24 +81,37 @@ fun main() {
             return energy
         }
         var newBest = best
-        toMove.forEach { pos ->
-            val amphipod = burrow.plan[pos.second][pos.first]
-            val others = toMove.filter { it != pos }
-            burrow.destinations(pos.first, pos.second).forEach { (dest, cost) ->
-                val newPlan = burrow.plan
-                newPlan[pos.second][pos.first] = '.'
-                newPlan[dest.second][dest.first] = amphipod
-                newBest = solve(Burrow(newPlan, others.plus(dest)), energy + cost, newBest)
-                newPlan[pos.second][pos.first] = amphipod
-                newPlan[dest.second][dest.first] = '.'
+        val moves = ArrayDeque<Move>()
+        toMove.forEach {
+            burrow.destinations(it.first, it.second).forEach { move ->
+                if (move.to.second > 1) {
+                    moves.addFirst(move) // put home moves first
+                } else {
+                    moves.add(move)
+                }
             }
+        }
+        moves.forEach { m ->
+            val amphipod = burrow.plan[m.from.second][m.from.first]
+            val others = toMove.filter { it != m.from }
+            burrow.plan[m.from.second][m.from.first] = '.'
+            burrow.plan[m.to.second][m.to.first] = amphipod
+            newBest = solve(Burrow(burrow.plan, others.plus(m.to)), energy + m.cost, newBest)
+            burrow.plan[m.from.second][m.from.first] = amphipod
+            burrow.plan[m.to.second][m.to.first] = '.'
         }
         return newBest
     }
 
-    check(solve(parseInput("Day23_test1")) == 12_521)
-    check(solve(parseInput("Day23_test2")) == 44_169)
+    fun part1(input: List<String>) = solve(parseInput(input))
+    fun part2(input: List<String>) =
+        part1(input.toMutableList().also { it.addAll(3, listOf("  #D#C#B#A#", "  #D#B#A#C#")) })
 
-    println(solve(parseInput("Day23-1")))
-    println(solve(parseInput("Day23-2")))
+    val testInput = readInput("Day23_test")
+    check(part1(testInput) == 12_521)
+    check(part2(testInput) == 44_169)
+
+    val input = readInput("Day23")
+    println(part1(input))
+    println(part2(input))
 }
