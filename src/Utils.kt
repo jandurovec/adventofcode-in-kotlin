@@ -1,6 +1,12 @@
 import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
+import kotlin.math.absoluteValue
+
+/**
+ * Returns Manhattan distance of two points in 2D
+ */
+fun manhattanDist(x1: Int, y1: Int, x2: Int, y2:Int) = (x1 - x2).absoluteValue + (y1 - y2).absoluteValue
 
 /**
  * Reads lines from the given input txt file.
