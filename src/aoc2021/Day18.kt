@@ -152,11 +152,11 @@ fun main() {
     //check magnitude
     check(parseNum("[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]").magnitude() == 3488)
 
-    val testInput = readInput("aoc2021/Day18_test")
+    val testInput = readInput(2021, 18, "test")
     check(part1(testInput) == 4140)
     check(part2(testInput) == 3993)
 
-    val input = readInput("aoc2021/Day18")
+    val input = readInput(2021, 18)
     println(part1(input))
     println(part2(input))
 }

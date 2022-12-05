@@ -6,11 +6,9 @@ fun main() {
     val winPoints = 6
     val drawPoints = 3
 
-    fun parseInput(name: String): List<Pair<Int, Int>> {
-        return readInput(name)
-            .map { it.split(" ") }
-            .map { it[0][0].code - 'A'.code + 1 to it[1][0].code - 'X'.code + 1 }
-    }
+    fun parseInput(input: List<String>) = input
+        .map { it.split(" ") }
+        .map { it[0][0].code - 'A'.code + 1 to it[1][0].code - 'X'.code + 1 }
 
     fun part1(input: List<Pair<Int, Int>>) = input.sumOf {
         it.second + when {
@@ -28,11 +26,11 @@ fun main() {
         }
     }
 
-    val testInput = parseInput("aoc2022/Day02_test")
+    val testInput = parseInput(readInput(2022, 2, "test"))
     check(part1(testInput) == 15)
     check(part2(testInput) == 12)
 
-    val input = parseInput("aoc2022/Day02")
+    val input = parseInput(readInput(2022, 2))
     println(part1(input))
     println(part2(input))
 }

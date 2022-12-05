@@ -112,11 +112,11 @@ fun main() {
     fun part2(input: List<String>) =
         part1(input.toMutableList().also { it.addAll(3, listOf("  #D#C#B#A#", "  #D#B#A#C#")) })
 
-    val testInput = readInput("aoc2021/Day23_test")
+    val testInput = readInput(2021, 23, "test")
     check(part1(testInput) == 12_521)
     check(part2(testInput) == 44_169)
 
-    val input = readInput("aoc2021/Day23")
+    val input = readInput(2021, 23)
     println(part1(input))
     println(part2(input))
 }

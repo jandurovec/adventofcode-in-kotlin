@@ -55,11 +55,11 @@ fun main() {
 
     fun part2(input: List<String>) = Sub2().move(input)
 
-    val testInput = readInput("aoc2021/Day02_test")
+    val testInput = readInput(2021, 2, "test")
     check(part1(testInput) == 150)
     check(part2(testInput) == 900)
 
-    val input = readInput("aoc2021/Day02")
+    val input = readInput(2021, 2)
     println(part1(input))
     println(part2(input))
 }

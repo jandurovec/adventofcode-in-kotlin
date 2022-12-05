@@ -21,11 +21,11 @@ fun main() {
 
     fun part2(input: List<String>) = input.chunked(3).sumOf(::findCommon)
 
-    val testInput = readInput("aoc2022/Day03_test")
+    val testInput = readInput(2022, 3, "test")
     check(part1(testInput) == 157)
     check(part2(testInput) == 70)
 
-    val input = readInput("aoc2022/Day03")
+    val input = readInput(2022, 3)
     println(part1(input))
     println(part2(input))
 }

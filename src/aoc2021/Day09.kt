@@ -3,7 +3,7 @@ package aoc2021
 import readInput
 
 fun main() {
-    fun parseInput(name: String) = readInput(name).flatMapIndexed { row, r ->
+    fun parseInput(input: List<String>) = input.flatMapIndexed { row, r ->
         r.mapIndexed { col, c -> (row to col) to c.digitToInt() }
     }.toMap()
 
@@ -32,11 +32,11 @@ fun main() {
         return basinSizes.sortedDescending().take(3).reduce(Int::times)
     }
 
-    val testInput = parseInput("aoc2021/Day09_test")
+    val testInput = parseInput(readInput(2021, 9, "test"))
     check(part1(testInput) == 15)
     check(part2(testInput) == 1134)
 
-    val input = parseInput("aoc2021/Day09")
+    val input = parseInput(readInput(2021, 9))
     println(part1(input))
     println(part2(input))
 }

@@ -42,11 +42,11 @@ fun main() {
 
     fun part2(input: List<String>) = rearrange(input, false)
 
-    val testInput = readInput("aoc2022/Day05_test")
+    val testInput = readInput(2022, 5, "test")
     check(part1(testInput) == "CMZ")
     check(part2(testInput) == "MCD")
 
-    val input = readInput("aoc2022/Day05")
+    val input = readInput(2022, 5)
     println(part1(input))
     println(part2(input))
 }

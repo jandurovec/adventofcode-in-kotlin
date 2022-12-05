@@ -6,7 +6,7 @@ import kotlin.math.pow
 fun main() {
     data class Values(val divZ: Int, val addX: Int, val addY: Int)
 
-    fun parseInput(name: String) = readInput(name).windowed(18, 18).map {
+    fun parseInput(input: List<String>) = input.windowed(18, 18).map {
         Values(
             it[4].split(" ")[2].toInt(),
             it[5].split(" ")[2].toInt(),
@@ -47,7 +47,7 @@ fun main() {
     fun part1(input: List<Values>) = search(input.toTypedArray(), 9 downTo 1)
     fun part2(input: List<Values>) = search(input.toTypedArray(), 1..9)
 
-    val input = parseInput("aoc2021/Day24")
+    val input = parseInput(readInput(2021, 24))
     println(part1(input))
     println(part2(input))
 }

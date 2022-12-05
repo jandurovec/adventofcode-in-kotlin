@@ -18,11 +18,11 @@ fun main() {
         b[1] >= a[0] && b[0] <= a[1]
     }
 
-    val testInput = readInput("aoc2022/Day04_test")
+    val testInput = readInput(2022, 4, "test")
     check(part1(testInput) == 2)
     check(part2(testInput) == 4)
 
-    val input = readInput("aoc2022/Day04")
+    val input = readInput(2022, 4)
     println(part1(input))
     println(part2(input))
 }

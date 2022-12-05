@@ -64,11 +64,11 @@ fun main() {
 
     fun part2(input: List<String>) = TrenchMap(input).enhance(50)
 
-    val testInput = readInput("aoc2021/Day20_test")
+    val testInput = readInput(2021, 20, "test")
     check(part1(testInput) == 35)
     check(part2(testInput) == 3_351)
 
-    val input = readInput("aoc2021/Day20")
+    val input = readInput(2021, 20)
     println(part1(input))
     println(part2(input))
 }

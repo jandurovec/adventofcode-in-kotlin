@@ -54,11 +54,11 @@ fun main() {
         return steps
     }
 
-    val testInput = readInput("aoc2021/Day11_test")
+    val testInput = readInput(2021, 11, "test")
     check(part1(testInput) == 1_656)
     check(part2(testInput) == 195)
 
-    val input = readInput("aoc2021/Day11")
+    val input = readInput(2021, 11)
     println(part1(input))
     println(part2(input))
 }

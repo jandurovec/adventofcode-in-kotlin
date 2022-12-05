@@ -59,7 +59,7 @@ fun main() {
             }
         }
 
-    val testInput1 = readInput("aoc2021/Day13_test")
+    val testInput1 = readInput(2021, 13, "test")
     check(part1(testInput1) == 17)
     check(
         """
@@ -71,7 +71,7 @@ fun main() {
     """.trimIndent() == part2(testInput1)
     )
 
-    val input = readInput("aoc2021/Day13")
+    val input = readInput(2021, 13)
     println(part1(input))
     println(part2(input))
 }

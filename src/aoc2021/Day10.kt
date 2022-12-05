@@ -32,11 +32,11 @@ fun main() {
         return scores[scores.size / 2]
     }
 
-    val testInput = readInput("aoc2021/Day10_test")
+    val testInput = readInput(2021, 10, "test")
     check(part1(testInput) == 26_397)
     check(part2(testInput) == 288_957L)
 
-    val input = readInput("aoc2021/Day10")
+    val input = readInput(2021, 10)
     println(part1(input))
     println(part2(input))
 }

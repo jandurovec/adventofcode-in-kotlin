@@ -42,11 +42,11 @@ fun main() {
         return counts.maxOf { it.value } - counts.minOf { it.value }
     }
 
-    val testInput1 = readInput("aoc2021/Day14_test")
+    val testInput1 = readInput(2021, 14, "test")
     check(polymerise(testInput1, 10) == 1_588L)
     check(polymerise(testInput1, 40) == 2_188_189_693_529)
 
-    val input = readInput("aoc2021/Day14")
+    val input = readInput(2021, 14)
     println(polymerise(input, 10))
     println(polymerise(input, 40))
 }

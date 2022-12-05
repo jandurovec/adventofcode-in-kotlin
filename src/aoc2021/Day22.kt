@@ -9,9 +9,9 @@ fun main() {
         val cmd: String, val fromX: Int, val toX: Int, val fromY: Int, val toY: Int, val fromZ: Int, val toZ: Int
     )
 
-    fun parseInput(name: String): List<Instruction> {
+    fun parseInput(input: List<String>): List<Instruction> {
         val regex = """(.+) x=(-?[0-9]+)..(-?[0-9]+),y=(-?[0-9]+)..(-?[0-9]+),z=(-?[0-9]+)..(-?[0-9]+)""".toRegex()
-        return readInput(name).map {
+        return input.map {
             val (cmd, fromX, toX, fromY, toY, fromZ, toZ) = regex.matchEntire(it)?.destructured!!
             Instruction(cmd, fromX.toInt(), toX.toInt(), fromY.toInt(), toY.toInt(), fromZ.toInt(), toZ.toInt())
         }
@@ -75,11 +75,11 @@ fun main() {
 
     fun part2(steps: List<Instruction>) = reboot(steps)
 
-    check(part1(parseInput("aoc2021/Day22_test1")) == 39L)
-    check(part1(parseInput("aoc2021/Day22_test2")) == 590_784L)
-    check(part2(parseInput("aoc2021/Day22_test3")) == 2_758_514_936_282_235)
+    check(part1(parseInput(readInput(2021, 22, "test1"))) == 39L)
+    check(part1(parseInput(readInput(2021, 22, "test2"))) == 590_784L)
+    check(part2(parseInput(readInput(2021, 22, "test3"))) == 2_758_514_936_282_235)
 
-    val input = parseInput("aoc2021/Day22")
+    val input = parseInput(readInput(2021, 22))
     println(part1(input))
     println(part2(input))
 }

@@ -11,8 +11,7 @@ fun main() {
                 .filter { it.first in 0 until size && it.second in 0 until size }
     }
 
-    fun parseInput(name: String): SquareGrid {
-        val lines = readInput(name)
+    fun parseInput(lines: List<String>): SquareGrid {
         val data = lines.map { r -> r.toCharArray().map { it.digitToInt() }.toIntArray() }.toTypedArray()
         return SquareGrid(lines.size, data)
     }
@@ -43,11 +42,11 @@ fun main() {
         })
     }
 
-    val testInput = parseInput("aoc2021/Day15_test")
+    val testInput = parseInput(readInput(2021, 15, "test"))
     check(part1(testInput) == 40)
     check(part2(testInput) == 315)
 
-    val input = parseInput("aoc2021/Day15")
+    val input = parseInput(readInput(2021, 15))
     println(part1(input))
     println(part2(input))
 }

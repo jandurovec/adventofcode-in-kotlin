@@ -3,8 +3,8 @@ package aoc2021
 import readInput
 
 fun main() {
-    fun parseInput(name: String) =
-        readInput(name).map { line -> line.split(" | ").map { it.split(' ') } }
+    fun parseInput(input: List<String>) =
+        input.map { line -> line.split(" | ").map { it.split(' ') } }
 
     fun part1(input: List<List<List<String>>>) =
         input.sumOf { (_, values) -> values.count { it.length <= 4 || it.length == 7 } }
@@ -39,11 +39,11 @@ fun main() {
         values.joinToString("") { mapping[it.toSet()]!! }.toInt()
     }
 
-    val testInput = parseInput("aoc2021/Day08_test")
+    val testInput = parseInput(readInput(2021, 8, "test"))
     check(part1(testInput) == 26)
     check(part2(testInput) == 61_229)
 
-    val input = parseInput("aoc2021/Day08")
+    val input = parseInput(readInput(2021, 8))
     println(part1(input))
     println(part2(input))
 }

@@ -3,8 +3,8 @@ package aoc2021
 import readInput
 
 fun main() {
-    fun parseInput(name: String) =
-        readInput(name).map { it.substringAfterLast(": ").toInt() }
+    fun parseInput(input: List<String>) =
+        input.map { it.substringAfterLast(": ").toInt() }
 
     fun part1(input: List<Int>): Int {
         val playerPos = input.toIntArray()
@@ -60,11 +60,11 @@ fun main() {
             .reduce { p, q -> (p.first + q.first) to (p.second + q.second) }.toList().maxOf { it }
     }
 
-    val testInput = parseInput("aoc2021/Day21_test")
+    val testInput = parseInput(readInput(2021, 21, "test"))
     check(part1(testInput) == 739_785)
     check(part2(testInput) == 444_356_092_776_315)
 
-    val input = parseInput("aoc2021/Day21")
+    val input = parseInput(readInput(2021, 21))
     println(part1(input))
     println(part2(input))
 }

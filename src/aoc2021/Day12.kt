@@ -39,19 +39,19 @@ fun main() {
 
     fun part2(input: List<String>): Int = findPaths(START, parseInput(input), canVisitForbidden = true)
 
-    val testInput1 = readInput("aoc2021/Day12_test1")
+    val testInput1 = readInput(2021, 12, "test1")
     check(part1(testInput1) == 10)
     check(part2(testInput1) == 36)
 
-    val testInput2 = readInput("aoc2021/Day12_test2")
+    val testInput2 = readInput(2021, 12, "test2")
     check(part1(testInput2) == 19)
     check(part2(testInput2) == 103)
 
-    val testInput3 = readInput("aoc2021/Day12_test3")
+    val testInput3 = readInput(2021, 12, "test3")
     check(part1(testInput3) == 226)
     check(part2(testInput3) == 3_509)
 
-    val input = readInput("aoc2021/Day12")
+    val input = readInput(2021, 12)
     println(part1(input))
     println(part2(input))
 }

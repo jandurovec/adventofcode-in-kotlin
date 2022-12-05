@@ -30,11 +30,11 @@ fun main() {
         return o2 * co2
     }
 
-    val testInput = readInput("aoc2021/Day03_test")
+    val testInput = readInput(2021, 3, "test")
     check(part1(testInput) == 198)
     check(part2(testInput) == 230)
 
-    val input = readInput("aoc2021/Day03")
+    val input = readInput(2021, 3)
     println(part1(input))
     println(part2(input))
 }

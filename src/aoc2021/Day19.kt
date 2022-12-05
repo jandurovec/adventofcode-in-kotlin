@@ -42,10 +42,10 @@ fun main() {
         { p: Point3D -> Point3D(-p.y, -p.z, p.x) }
     )
 
-    fun parseInput(name: String): List<Set<Point3D>> {
+    fun parseInput(input: List<String>): List<Set<Point3D>> {
         val report = mutableListOf<Set<Point3D>>()
         var readings: MutableSet<Point3D>? = null
-        readInput(name).forEach { line ->
+        input.forEach { line ->
             if (line.startsWith("--- ")) {
                 readings = mutableSetOf()
                 report.add(readings!!)
@@ -100,12 +100,12 @@ fun main() {
         nav.scanners.maxOf { b -> (a.x - b.x).absoluteValue + (a.y - b.y).absoluteValue + (a.z - b.z).absoluteValue }
     }
 
-    val testInput = parseInput("aoc2021/Day19_test")
+    val testInput = parseInput(readInput(2021, 19, "test"))
     val testNavigation = align(testInput)
     check(part1(testNavigation) == 79)
     check(part2(testNavigation) == 3_621)
 
-    val input = parseInput("aoc2021/Day19")
+    val input = parseInput(readInput(2021, 19))
     val navigation = align(input)
     println(part1(navigation))
     println(part2(navigation))
