@@ -65,3 +65,22 @@ fun String.toIntList(delimiter: Char = ',') = split(delimiter).map { it.toInt() 
  * Checks if string is lowercase
  */
 fun String.isLowerCase() = all(Char::isLowerCase)
+
+fun IntProgression.size(): Int = if (this.isEmpty()) 0 else 1 + (last - first) / step
+fun IntRange.overlaps(other: IntRange) = this.last >= other.first && this.first <= other.last
+fun Iterable<IntRange>.subtractRange(range: IntRange) = this.flatMap {
+    if (it.overlaps(range))
+        listOf(it.first until range.first, range.last + 1..it.last)
+    else
+        listOf(it)
+}.filter { !it.isEmpty() }
+fun Iterable<IntRange>.union(): List<IntRange> = this.sortedBy { it.first }
+    .fold(mutableListOf()) { acc, current ->
+        val previous = acc.lastOrNull()
+        if (previous != null && current.first <= previous.last) {
+            acc[acc.lastIndex] = previous.first..maxOf(current.last, previous.last)
+        } else {
+            acc += current
+        }
+        acc
+    }
