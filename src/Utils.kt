@@ -84,3 +84,15 @@ fun Iterable<IntRange>.union(): List<IntRange> = this.sortedBy { it.first }
         }
         acc
     }
+
+tailrec fun gcd(a: Long, b: Long): Long {
+    return if (a == 0L) {
+        b
+    } else if (b == 0L) {
+        a
+    } else {
+        val h = maxOf(a.absoluteValue, b.absoluteValue)
+        val l = minOf(a.absoluteValue, b.absoluteValue)
+        gcd(l, h.mod(l))
+    }
+}
