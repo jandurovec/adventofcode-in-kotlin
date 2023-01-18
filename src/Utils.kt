@@ -70,10 +70,13 @@ fun IntProgression.size(): Int = if (this.isEmpty()) 0 else 1 + (last - first) /
 fun IntRange.overlaps(other: IntRange) = this.last >= other.first && this.first <= other.last
 fun Iterable<IntRange>.subtractRange(range: IntRange) = this.flatMap {
     if (it.overlaps(range))
-        listOf(it.first until range.first, range.last + 1..it.last)
+        listOf(it.first until range.first).let { res ->
+            if (range.last < Int.MAX_VALUE) res.plusElement(range.last + 1..it.last) else res
+        }
     else
         listOf(it)
 }.filter { !it.isEmpty() }
+
 fun Iterable<IntRange>.union(): List<IntRange> = this.sortedBy { it.first }
     .fold(mutableListOf()) { acc, current ->
         val previous = acc.lastOrNull()
@@ -94,5 +97,15 @@ tailrec fun gcd(a: Long, b: Long): Long {
         val h = maxOf(a.absoluteValue, b.absoluteValue)
         val l = minOf(a.absoluteValue, b.absoluteValue)
         gcd(l, h.mod(l))
+    }
+}
+
+fun <T> Set<T>.permutations(): Sequence<List<T>> = sequence {
+    if (isEmpty()) {
+        yield(emptyList())
+    } else {
+        this@permutations.forEach { item ->
+            yieldAll((this@permutations - item).permutations().map { listOf(item) + it })
+        }
     }
 }

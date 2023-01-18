@@ -16,8 +16,8 @@ abstract class AdventDay<I, R1 : Any, R2 : Any>(private val year: Int, private v
     protected open fun testCases1(): List<TestCase<I, R1>> = emptyList()
     protected open fun testCases2(): List<TestCase<I, R2>> = emptyList()
 
-    open fun part1(input: I, testArg: Any?): R1 = TODO("Not yet implemented")
-    open fun part2(input: I, testArg: Any?): R2 = TODO("Not yet implemented")
+    open fun part1(input: I, testArg: Any? = null): R1 = TODO("Not yet implemented")
+    open fun part2(input: I, testArg: Any? = null): R2 = TODO("Not yet implemented")
 
     fun main() {
         val header = "AoC $year day $day"
@@ -26,10 +26,10 @@ abstract class AdventDay<I, R1 : Any, R2 : Any>(private val year: Int, private v
         println(separator)
         val testTime = measureTime {
             testCases1().forEach {
-                assertEquals(it.expected, part1(it.input, it.testArg))
+                assertEquals(it.expected, part1(it.input, it.testArg), "${it.input}")
             }
             testCases2().forEach {
-                assertEquals(it.expected, part2(it.input, it.testArg))
+                assertEquals(it.expected, part2(it.input, it.testArg), "${it.input}")
             }
         }
         val part1Time = printAndMeasure(::part1)
