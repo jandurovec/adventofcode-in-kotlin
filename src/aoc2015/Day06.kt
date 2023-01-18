@@ -58,7 +58,7 @@ class Day06 : AdventDay<List<Day06.Instruction>, Int, Int>(2015, 6) {
     }
 
     override fun testCases1() = listOf(
-        TestCase(getInput("test"), 998_996)
+        TestCase(getTestInput(), 998_996)
     )
 
 }

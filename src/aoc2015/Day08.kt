@@ -26,8 +26,8 @@ class Day08 : UnparsedDay<Int, Int>(2015, 8) {
         2 + s.count { it == '\\' || it == '"' }
     }
 
-    override fun testCases1() = listOf(TestCase(getInput("test"), 12))
-    override fun testCases2() = listOf(TestCase(getInput("test"), 19))
+    override fun testCases1() = listOf(TestCase(getTestInput(), 12))
+    override fun testCases2() = listOf(TestCase(getTestInput(), 19))
 }
 
 fun main() {

@@ -24,8 +24,8 @@ class Day09 : AdventDay<Map<Day09.Way, Int>, Int, Int>(2015, 9) {
     override fun part1(input: Map<Way, Int>, testArg: Any?) = solve(input, Sequence<Int>::min)
     override fun part2(input: Map<Way, Int>, testArg: Any?) = solve(input, Sequence<Int>::max)
 
-    override fun testCases1() = listOf(TestCase(getInput("test"), 605))
-    override fun testCases2() = listOf(TestCase(getInput("test"), 982))
+    override fun testCases1() = listOf(TestCase(getTestInput(), 605))
+    override fun testCases2() = listOf(TestCase(getTestInput(), 982))
 }
 
 fun main() {

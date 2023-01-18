@@ -52,8 +52,8 @@ class Day18 : AdventDay<Grid<Boolean>, Int, Int>(2015, 18) {
         )
     }
 
-    override fun testCases1() = listOf(TestCase(getInput("test"), 4, TestArg(6, 4)))
-    override fun testCases2() = listOf(TestCase(getInput("test"), 17, TestArg(6, 5)))
+    override fun testCases1() = listOf(TestCase(getTestInput(), 4, TestArg(6, 4)))
+    override fun testCases2() = listOf(TestCase(getTestInput(), 17, TestArg(6, 5)))
 }
 
 fun main() {

@@ -32,8 +32,8 @@ class Day14 : AdventDay<List<Day14.Reindeer>, Int, Int>(2015, 14) {
             acc
         }.values.max()
 
-    override fun testCases1() = listOf(TestCase(getInput("test"), 1120, 1000))
-    override fun testCases2() = listOf(TestCase(getInput("test"), 689, 1000))
+    override fun testCases1() = listOf(TestCase(getTestInput(), 1120, 1000))
+    override fun testCases2() = listOf(TestCase(getTestInput(), 689, 1000))
 }
 
 

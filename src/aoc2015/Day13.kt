@@ -51,7 +51,7 @@ class Day13 : AdventDay<Map<String, Map<String, Int>>, Int, Int>(2015, 13) {
     override fun part2(input: Map<String, Map<String, Int>>, testArg: Any?) =
         optimalHappiness(input, input.keys.plus("me"))
 
-    override fun testCases1() = listOf(TestCase(getInput("test"), 330))
+    override fun testCases1() = listOf(TestCase(getTestInput(), 330))
 }
 
 fun main() {

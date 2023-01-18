@@ -42,7 +42,7 @@ class Day07 : AdventDay<List<Pair<String, String>>, Int, Int>(2015, 7) {
         }
     }
 
-    override fun testCases1() = listOf(TestCase(getInput("test"), 65079))
+    override fun testCases1() = listOf(TestCase(getTestInput(), 65079))
 }
 
 fun main() {

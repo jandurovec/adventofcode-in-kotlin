@@ -11,6 +11,7 @@ abstract class AdventDay<I, R1 : Any, R2 : Any>(private val year: Int, private v
     protected abstract fun parseInput(stringInput: List<String>): I
     protected open fun readInput(classifier: String = "") = readInput(year, day, classifier)
     protected fun getInput(classifier: String = "") = parseInput(readInput(classifier))
+    protected fun getTestInput(classifier: String = "test") = getInput(classifier)
 
     protected open fun testCases1(): List<TestCase<I, R1>> = emptyList()
     protected open fun testCases2(): List<TestCase<I, R2>> = emptyList()

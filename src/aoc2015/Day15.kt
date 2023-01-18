@@ -45,8 +45,8 @@ class Day15 : AdventDay<List<Day15.Ingredient>, Int, Int>(2015, 15) {
         input.sumOf { it.calories * recipe[it.name]!! } == 500
     }
 
-    override fun testCases1() = listOf(TestCase(getInput("test"), 62842880))
-    override fun testCases2() = listOf(TestCase(getInput("test"), 57600000))
+    override fun testCases1() = listOf(TestCase(getTestInput(), 62842880))
+    override fun testCases2() = listOf(TestCase(getTestInput(), 57600000))
 }
 
 fun main() {
