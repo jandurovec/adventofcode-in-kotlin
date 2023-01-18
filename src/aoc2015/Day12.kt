@@ -10,20 +10,20 @@ class Day12 : SingleStringDay<Int, Int>(2015, 12) {
     override fun part2(input: String, testArg: Any?): Int {
         class JSON(private val s: String) {
             private var pos = 0
-            private fun parseString() =
+            private fun parseString(): Any =
                 s.substring(pos + 1, s.indexOf('"', pos + 1)).also { pos += it.length + 2 }
 
-            private fun parseNumber() =
+            private fun parseNumber(): Any =
                 s.drop(pos).takeWhile { it.isDigit() || it == '-' }.let {
                     pos += it.length
                     it.toInt()
                 }
 
-            private fun parseArray(): List<Any> = generateSequence {
+            private fun parseArray(): Any = generateSequence {
                 if (s[pos++] != ']') parse() else null
             }.toList()
 
-            private fun parseObject(): Map<String, Any> = generateSequence {
+            private fun parseObject(): Any = generateSequence {
                 if (s[pos++] != '}') parseString().also { pos++ } to parse() else null
             }.toMap()
 

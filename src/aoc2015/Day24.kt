@@ -19,11 +19,11 @@ class Day24 : AdventDay<List<Int>, Long, Long>(2015, 24) {
             }
         }
 
-    fun Set<Int>.quantunEntanglement(): Long = map { it.toLong() }.reduce(Long::times)
+    private fun Set<Int>.quantunEntanglement(): Long = map { it.toLong() }.reduce(Long::times)
 
-    fun List<Int>.minEntanglement(groups: Int): Long {
+    private fun List<Int>.minEntanglement(groupCount: Int): Long {
         val sortedItems = sorted()
-        val groupSize = sum() / groups
+        val groupSize = sum() / groupCount
         val groups = sortedItems.findGroup(groupSize)
         /*
         Normally it would be needed to recursively check if the remainder can be split to "groups -1" groups,

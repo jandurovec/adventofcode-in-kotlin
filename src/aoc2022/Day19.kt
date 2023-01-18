@@ -39,7 +39,6 @@ fun main() {
                 Materials(ore4, 0, obsidian4, 0) to Materials(0, 0, 0, 1)
             )
         }
-
     }
 
     fun sumArithmetic(from: Int, size: Int) = if (size <= 0) 0 else (size * (2 * from + size - 1)) / 2
@@ -83,7 +82,6 @@ fun main() {
                 val potential = sumArithmetic(it.increment.geode, remainingTime - 1)
                 it.inventory.geode + potential >= maxFoundGeodes
             }.toSet()
-            //println("Remaining: $remainingTime, States: ${states.size}")
         }
         // last step
         return states.maxOf { it.inventory.geode + it.increment.geode }
@@ -91,13 +89,11 @@ fun main() {
 
     fun part1(input: List<String>) =
         parseInput(input).mapIndexed { idx, blueprint ->
-            // println("Checking ${idx + 1}")
             (idx + 1) * maxGeodes(blueprint, 24)
         }.sum()
 
 
-    fun part2(input: List<String>) = parseInput(input).take(3).mapIndexed { idx, blueprint ->
-        // println("Checking ${idx + 1}")
+    fun part2(input: List<String>) = parseInput(input).take(3).map { blueprint ->
         maxGeodes(blueprint, 32)
     }.reduce { a, b -> a * b }
 
