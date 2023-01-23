@@ -7,7 +7,7 @@ import md5
 class Day04 : SingleStringDay<Int, Int>(2015, 4) {
     private fun mine(secret: String, zeroes: Int) = "0".repeat(zeroes).let { prefix ->
         generateSequence(1) { it + 1 }.first {
-            (secret + it.toString()).md5().padStart(32, '0').startsWith(prefix)
+            (secret + it.toString()).md5().startsWith(prefix)
         }
     }
 

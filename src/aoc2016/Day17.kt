@@ -21,7 +21,7 @@ class Day17 : SingleStringDay<String, Int>(2016, 17) {
             val cur = toExplore.removeFirst()
             yield(cur)
             if (cur.pos != END) {
-                val openDoors = (passCode + cur.path).md5().padStart(32, '0').subSequence(0, 4).let { hash ->
+                val openDoors = (passCode + cur.path).md5().subSequence(0, 4).let { hash ->
                     listOf(
                         'U' to Point(0, -1), 'D' to Point(0, 1), 'L' to Point(-1, 0), 'R' to Point(1, 0)
                     ).filterIndexed { index, _ ->

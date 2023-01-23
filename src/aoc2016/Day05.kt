@@ -7,20 +7,19 @@ import md5
 class Day05 : SingleStringDay<String, String>(2016, 5) {
     private fun hashes(key: String) = generateSequence(0) { it + 1 }
         .map { (key + it).md5() }
-        .filter { it.length <= 27 }
-        .map { it.padStart(27, '0') }
+        .filter { it.startsWith("00000") }
 
-    override fun part1(input: String, testArg: Any?) = hashes(input).take(8).map { it[0] }.joinToString("")
+    override fun part1(input: String, testArg: Any?) = hashes(input).take(8).map { it[5] }.joinToString("")
 
     override fun part2(input: String, testArg: Any?): String {
         val pass = arrayOfNulls<Char>(8)
         val hashes = hashes(input).iterator()
         while (pass.any { it == null }) {
             val hash = hashes.next()
-            if (hash[0] in '0'..'7') {
-                val idx = hash[0] - '0'
+            if (hash[5] in '0'..'7') {
+                val idx = hash[5] - '0'
                 if (pass[idx] == null) {
-                    pass[idx] = hash[1]
+                    pass[idx] = hash[6]
                 }
             }
         }
