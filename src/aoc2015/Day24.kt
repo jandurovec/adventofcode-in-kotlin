@@ -1,13 +1,10 @@
 package aoc2015
 
-import AdventDay
+import IntListDay
 import TestCase
 import kotlin.math.sign
 
-class Day24 : AdventDay<List<Int>, Long, Long>(2015, 24) {
-
-    override fun parseInput(stringInput: List<String>) = stringInput.map { it.toInt() }
-
+class Day24 : IntListDay<Long, Long>(2015, 24) {
     private fun List<Int>.findGroup(n: Int, fromIndex: Int = 0, acc: Set<Int> = emptySet()): Sequence<Set<Int>> =
         sequence {
             val cur = this@findGroup[fromIndex]

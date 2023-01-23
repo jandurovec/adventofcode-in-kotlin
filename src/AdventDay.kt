@@ -59,3 +59,7 @@ open class UnparsedDay<R1 : Any, R2 : Any>(year: Int, day: Int) : AdventDay<List
 open class SingleStringDay<R1 : Any, R2 : Any>(year: Int, day: Int) : AdventDay<String, R1, R2>(year, day) {
     override fun parseInput(stringInput: List<String>) = stringInput.first()
 }
+
+open class IntListDay<R1 : Any, R2 : Any>(year: Int, day: Int) : AdventDay<List<Int>, R1, R2>(year, day) {
+    override fun parseInput(stringInput: List<String>) = stringInput.map { it.toInt() }
+}

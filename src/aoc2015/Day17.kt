@@ -1,12 +1,9 @@
 package aoc2015
 
-import AdventDay
+import IntListDay
 import TestCase
 
-class Day17 : AdventDay<List<Int>, Int, Int>(2015, 17) {
-
-    override fun parseInput(stringInput: List<String>) = stringInput.map { it.toInt() }
-
+class Day17 : IntListDay<Int, Int>(2015, 17) {
     private fun containerCombinations(
         containers: List<Int>,
         eggnog: Int,
