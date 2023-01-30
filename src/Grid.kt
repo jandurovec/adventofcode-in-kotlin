@@ -1,4 +1,10 @@
 data class Point(val x: Int, val y: Int) {
+    companion object {
+        val UP = Point(0,0).up()
+        val DOWN = Point(0,0).down()
+        val LEFT = Point(0,0).left()
+        val RIGHT = Point(0,0).right()
+    }
     fun neighbors(includeDiagonal: Boolean = true) = (-1..1).flatMap { x ->
         (-1..1).mapNotNull { y ->
             if (x != 0 || y != 0) x to y else null
@@ -7,6 +13,7 @@ data class Point(val x: Int, val y: Int) {
         .map { (dx, dy) -> Point(this.x + dx, this.y + dy) }
 
     operator fun plus(other: Point) = Point(x + other.x, y + other.y)
+    operator fun unaryMinus() = Point(-x, -y)
     operator fun times(multiplier: Int) = Point(multiplier * x, multiplier * y)
 
     fun right() = Point(x + 1, y)
