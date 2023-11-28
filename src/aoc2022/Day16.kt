@@ -1,7 +1,6 @@
 package aoc2022
 
 import readInput
-import kotlin.system.measureTimeMillis
 
 fun main() {
     class Volcano(input: List<String>) {

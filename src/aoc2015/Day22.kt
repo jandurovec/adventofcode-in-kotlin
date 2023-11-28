@@ -24,7 +24,7 @@ class Day22 : AdventDay<Day22.Boss, Int, Int>(2015, 22) {
         val toExplore = PriorityQueue(listOf(GameState(boss.hp, startingHp)))
         while (toExplore.isNotEmpty()) {
             val cur = toExplore.remove()
-            Spell.values().filter { it.cost <= cur.playerMana && !cur.effects.containsKey(it) }.forEach { spell ->
+            Spell.entries.filter { it.cost <= cur.playerMana && !cur.effects.containsKey(it) }.forEach { spell ->
                 val newManaSpent = cur.manaSpent + spell.cost
                 var newMana = cur.playerMana - spell.cost
                 var newBossHp = cur.bossHp

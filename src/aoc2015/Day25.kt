@@ -2,7 +2,6 @@ package aoc2015
 
 import AdventDay
 import TestCase
-import kotlin.math.sign
 
 class Day25 : AdventDay<Pair<Int, Int>, Int, Unit>(2015, 25) {
 
@@ -28,7 +27,7 @@ class Day25 : AdventDay<Pair<Int, Int>, Int, Unit>(2015, 25) {
         return code
     }
 
-    override fun part2(input: Pair<Int, Int>, testArg: Any?) {}
+    override fun part2(input: Pair<Int, Int>, testArg: Any?) = Unit
 
     override fun testCases1() = listOf(TestCase(6 to 1, 33071741))
 }

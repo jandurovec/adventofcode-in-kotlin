@@ -19,7 +19,7 @@ class Day25 : UnparsedDay<Int, Unit>(2016, 25) {
         return generateSequence(0) { it + 1 }.first { (it + x * y).toString(2).matches(binCheck) }
     }
 
-    override fun part2(input: List<String>, testArg: Any?) {}
+    override fun part2(input: List<String>, testArg: Any?) = Unit
 }
 
 fun main() {

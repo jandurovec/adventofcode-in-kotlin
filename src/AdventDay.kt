@@ -1,11 +1,9 @@
 import kotlin.test.assertEquals
 import kotlin.time.Duration
-import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
 
 class TestCase<I, E>(val input: I, val expected: E, val testArg: Any? = null)
 
-@OptIn(ExperimentalTime::class)
 abstract class AdventDay<I, R1 : Any, R2 : Any>(private val year: Int, private val day: Int) {
 
     protected abstract fun parseInput(stringInput: List<String>): I

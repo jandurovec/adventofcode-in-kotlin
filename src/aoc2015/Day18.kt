@@ -20,9 +20,9 @@ class Day18 : AdventDay<Grid<Boolean>, Int, Int>(2015, 18) {
     }
 
     private fun conway(input: Grid<Boolean>, size: Int, steps: Int, fixed: Map<Point, Boolean> = emptyMap()): Int {
-        var grid = Grid<Boolean>(input.plus(fixed))
+        var grid = Grid(input.plus(fixed))
         repeat(steps) {
-            val newGrid = Grid<Boolean>(fixed)
+            val newGrid = Grid(fixed)
             grid.keys.plus(grid.keys.flatMap { it.neighbors() }).toSet()
                 .filter { it.x in 0 until size && it.y in 0 until size }
                 .forEach { p ->
