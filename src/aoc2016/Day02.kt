@@ -56,7 +56,7 @@ class Day02 : UnparsedDay<String, String>(2016, 2) {
         ), input
     )
 
-    val testInput = getTestInput()
+    private val testInput = getTestInput()
     override fun testCases1() = listOf(TestCase(testInput, "1985"))
     override fun testCases2() = listOf(TestCase(testInput, "5DB3"))
 }
