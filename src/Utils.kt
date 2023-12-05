@@ -68,26 +68,48 @@ fun String.toIntList(delimiter: Char = ',') = split(delimiter).map { it.toInt() 
 fun String.isLowerCase() = all(Char::isLowerCase)
 
 fun IntProgression.size(): Int = if (this.isEmpty()) 0 else 1 + (last - first) / step
-fun IntRange.overlaps(other: IntRange) = this.last >= other.first && this.first <= other.last
-fun Iterable<IntRange>.subtractRange(range: IntRange) = this.flatMap {
+fun <T : Comparable<T>> ClosedRange<T>.overlaps(other: ClosedRange<T>) =
+    this.endInclusive >= other.start && this.start <= other.endInclusive
+
+private fun <T : Comparable<T>, S : ClosedRange<T>> Iterable<S>.subtractRange(
+    range: S,
+    openEndRange: (T, T) -> S,
+    closedRange: (T, T) -> S,
+    increment: (T, Int) -> T,
+    maxVal: T
+) = this.flatMap {
     if (it.overlaps(range))
-        listOf(it.first until range.first).let { res ->
-            if (range.last < Int.MAX_VALUE) res.plusElement(range.last + 1..it.last) else res
+        listOf(openEndRange(it.start, range.start)).let { res ->
+            if (range.endInclusive < maxVal)
+                res.plusElement(closedRange(increment(range.endInclusive, 1), it.endInclusive))
+            else res
         }
     else
         listOf(it)
 }.filter { !it.isEmpty() }
 
-fun Iterable<IntRange>.union(): List<IntRange> = this.sortedBy { it.first }
+fun Iterable<LongRange>.subtractRange(range: LongRange) =
+    this.subtractRange(range, Long::until, Long::rangeTo, Long::plus, Long.MAX_VALUE)
+
+fun Iterable<IntRange>.subtractRange(range: IntRange) =
+    this.subtractRange(range, Int::until, Int::rangeTo, Int::plus, Int.MAX_VALUE)
+
+private fun <T : Comparable<T>, S : ClosedRange<T>> Iterable<S>.union(closedRange: (T, T) -> S): List<S> = this.sortedBy { it.start }
     .fold(mutableListOf()) { acc, current ->
         val previous = acc.lastOrNull()
-        if (previous != null && current.first <= previous.last) {
-            acc[acc.lastIndex] = previous.first..maxOf(current.last, previous.last)
+        if (previous != null && current.start <= previous.endInclusive) {
+            acc[acc.lastIndex] = closedRange(previous.start, maxOf(current.endInclusive, previous.endInclusive))
         } else {
             acc += current
         }
         acc
     }
+
+@JvmName("unionIntRange")
+fun Iterable<IntRange>.union() = this.union(Int::rangeTo)
+
+@JvmName("unionLongRange")
+fun Iterable<LongRange>.union() = this.union(Long::rangeTo)
 
 tailrec fun gcd(a: Long, b: Long): Long {
     return if (a == 0L) {
