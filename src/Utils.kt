@@ -132,3 +132,15 @@ fun <T> Set<T>.permutations(): Sequence<List<T>> = sequence {
         }
     }
 }
+
+fun <T> Iterable<T>.split(condition: (T) -> Boolean) :List<List<T>> = buildList {
+    var cur = mutableListOf<T>().also { add(it) }
+    this@split.forEach { element ->
+        if (condition.invoke(element)) {
+            cur = mutableListOf<T>().also { add(it) }
+        } else {
+            cur.add(element)
+        }
+    }
+}
+fun Iterable<String>.split() = split { it.isBlank() }
