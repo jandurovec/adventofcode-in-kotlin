@@ -32,10 +32,25 @@ class Day23 : AdventDay<Day23.Trails, Int, Int>(2023, 23) {
                 }
             }
 
-            fun recSearch(from: Point, visited: Set<Point>): Int? = if (from == end) {
-                0
-            } else {
+            fun endIsReachable(from: Point, blocked: Set<Point>): Boolean {
+                if (from == end) return true
+                val visited = blocked.toMutableSet().also { it.add(from) }
+                val toExplore = ArrayDeque<Point>()
+                toExplore.addLast(from)
+                while (toExplore.isNotEmpty()) {
+                    distances[toExplore.removeFirst()]!!.keys.filter { !visited.contains(it) }.forEach {
+                        if (it == end) return true else {
+                            visited.add(it)
+                            toExplore.add(it)
+                        }
+                    }
+                }
+                return false
+            }
+
+            fun recSearch(from: Point, visited: Set<Point>): Int? = if (from == end) 0 else {
                 distances[from]!!.filter { (p, _) -> !visited.contains(p) }
+                    .filter { (next, _) -> endIsReachable(next, visited) }
                     .mapNotNull { (next, d) -> recSearch(next, visited + next)?.let { d + it } }
                     .maxOfOrNull { it }
             }
