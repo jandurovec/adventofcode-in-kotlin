@@ -10,15 +10,28 @@ class Primes : Sequence<Int> {
     override fun iterator() = generateSequence().iterator()
 }
 
-fun Int.factorize(): Map<Int, Int> =
-    Primes().takeWhile { it * it <= this }.fold(this to emptyMap<Int, Int>()) { (remaining, exp), p ->
+fun Int.factorize() = this.toLong().factorize().mapKeys { (k, _) -> k.toInt() }
+
+fun Long.factorize(): Map<Long, Int> {
+    val primes = Primes().iterator()
+    var p = primes.next().toLong()
+    var rem = this
+    val result = mutableMapOf<Long, Int>()
+    while (p * p <= rem) {
         var exponent = 0
-        var rem = remaining
-        while (rem % p == 0) {
+        while (rem % p == 0L) {
             rem /= p
             exponent++
         }
-        rem to if (exponent > 0) exp + (p to exponent) else exp
-    }.let { (remaining, result) ->
-        if (remaining > 1) result + (remaining to 1) else result
+        if (exponent > 0) {
+            result[p] = exponent
+        }
+        if (p * p <= rem) {
+            p = primes.next().toLong()
+        }
     }
+    if (rem > 1) {
+        result[rem] = 1
+    }
+    return result
+}
