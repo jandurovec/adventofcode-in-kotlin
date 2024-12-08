@@ -13,6 +13,7 @@ data class Point(val x: Int, val y: Int) {
         .map { (dx, dy) -> Point(this.x + dx, this.y + dy) }
 
     operator fun plus(other: Point) = Point(x + other.x, y + other.y)
+    operator fun minus(other: Point) = Point(x - other.x, y - other.y)
     operator fun unaryMinus() = Point(-x, -y)
     operator fun times(multiplier: Int) = Point(multiplier * x, multiplier * y)
 
