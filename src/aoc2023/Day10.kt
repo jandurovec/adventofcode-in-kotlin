@@ -27,7 +27,7 @@ class Day10 : AdventDay<Grid<Char>, Int, Int>(2023, 10) {
 
     override fun parseInput(stringInput: List<String>) = stringInput.flatMapIndexed { y, line ->
         line.mapIndexed { x, char ->
-            Point(x, stringInput.lastIndex - y) to char
+            Point(x, y) to char
         }
     }.associate { it }.toMutableMap()
 

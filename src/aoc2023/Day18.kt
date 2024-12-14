@@ -63,9 +63,9 @@ class Day18 : UnparsedDay<Int, Long>(2023, 18) {
                 val distance = s.substring(0, 5).toInt(16)
                 val segment = when (direction) {
                     '0' -> Segment(cur, Point(cur.x + distance, cur.y), 'R')
-                    '1' -> Segment(cur, Point(cur.x, cur.y - distance), 'D')
+                    '1' -> Segment(cur, Point(cur.x, cur.y + distance), 'D')
                     '2' -> Segment(cur, Point(cur.x - distance, cur.y), 'L')
-                    else -> Segment(cur, Point(cur.x, cur.y + distance), 'U')
+                    else -> Segment(cur, Point(cur.x, cur.y - distance), 'U')
                 }
                 add(segment)
                 cur = segment.to
@@ -89,12 +89,12 @@ class Day18 : UnparsedDay<Int, Long>(2023, 18) {
         val mappedBoundary = mutableSetOf(cur)
         segments.forEach { (from, to, direction) ->
             when (direction) {
-                'U' -> repeat((yPoints.count((from.y..to.y)::contains) - 1) * 2) {
+                'U' -> repeat((yPoints.count((to.y..from.y)::contains) - 1) * 2) {
                     cur = cur.up()
                     mappedBoundary.add(cur)
                 }
 
-                'D' -> repeat((yPoints.count((to.y..from.y)::contains) - 1) * 2) {
+                'D' -> repeat((yPoints.count((from.y..to.y)::contains) - 1) * 2) {
                     cur = cur.down()
                     mappedBoundary.add(cur)
                 }

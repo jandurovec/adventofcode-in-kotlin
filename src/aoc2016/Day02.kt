@@ -9,7 +9,7 @@ class Day02 : UnparsedDay<String, String>(2016, 2) {
     private fun parseGrid(def: List<String>): Pair<Grid<Char>, Point> {
         val grid = Grid<Char>()
         var start: Point? = null
-        def.reversed().forEachIndexed { y, line ->
+        def.forEachIndexed { y, line ->
             line.forEachIndexed { x, c ->
                 if (c != ' ') {
                     grid[Point(x, y)] = c

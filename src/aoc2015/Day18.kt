@@ -10,7 +10,7 @@ class Day18 : AdventDay<Grid<Boolean>, Int, Int>(2015, 18) {
     private class TestArg(val size: Int, val steps: Int)
 
     override fun parseInput(stringInput: List<String>) = Grid<Boolean>().apply {
-        stringInput.reversed().forEachIndexed { y, row ->
+        stringInput.forEachIndexed { y, row ->
             row.forEachIndexed { x, c ->
                 if (c == '#') {
                     this[Point(x, y)] = true

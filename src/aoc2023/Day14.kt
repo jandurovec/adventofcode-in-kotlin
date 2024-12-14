@@ -26,12 +26,12 @@ class Day14 : AdventDay<Day14.Platform, Int, Int>(2023, 14) {
             return Platform(h, w, fixed, movedRocks)
         }
 
-        fun tiltNorth() = tilt((h downTo 1).flatMap { y -> (1..w).map { x -> Point(x, y) } }, Point::up) { it.y <= h }
+        fun tiltNorth() = tilt((1..h).flatMap { y -> (1..w).map { x -> Point(x, y) } }, Point::up) { it.y > 0 }
         fun tiltWest() = tilt((1..w).flatMap { x -> (1..h).map { y -> Point(x, y) } }, Point::left) { it.x > 0 }
-        fun tiltSouth() = tilt((1..h).flatMap { y -> (1..w).map { x -> Point(x, y) } }, Point::down) { it.y > 0 }
+        fun tiltSouth() = tilt((h downTo 1).flatMap { y -> (1..w).map { x -> Point(x, y) } }, Point::down) { it.y <= h }
         fun tiltEast() = tilt((w downTo 1).flatMap { x -> (1..h).map { y -> Point(x, y) } }, Point::right) { it.x <= w }
 
-        fun load() = moving.sumOf { it.y }
+        fun load() = moving.sumOf { h - it.y + 1 }
     }
 
     override fun parseInput(stringInput: List<String>): Platform {
@@ -40,7 +40,7 @@ class Day14 : AdventDay<Day14.Platform, Int, Int>(2023, 14) {
         val fixed = mutableSetOf<Point>()
         val moving = mutableSetOf<Point>()
         stringInput.flatMapIndexed { row: Int, line: String ->
-            line.mapIndexed { col, c -> Point(col + 1, h - row) to c }
+            line.mapIndexed { col, c -> Point(col + 1, row + 1) to c }
         }.filter { it.second != '.' }.forEach { (p, c) -> if (c == '#') fixed.add(p) else moving.add(p) }
         return Platform(h, w, fixed, moving)
     }

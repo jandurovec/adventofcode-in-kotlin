@@ -65,7 +65,7 @@ class Day23 : AdventDay<Day23.Trails, Int, Int>(2023, 23) {
             stringInput.forEachIndexed { y, line ->
                 line.forEachIndexed { x, c ->
                     if (c != '#') {
-                        val p = Point(x, stringInput.lastIndex - y).also { put(it, c) }
+                        val p = Point(x, y).also { put(it, c) }
                         if (y == 0) {
                             start = p
                         } else if (y == stringInput.lastIndex) {

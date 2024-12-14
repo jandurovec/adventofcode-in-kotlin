@@ -11,7 +11,7 @@ class Day12 : AdventDay<Grid<Char>, Int, Int>(2024, 12) {
     override fun parseInput(stringInput: List<String>) = Grid(buildMap {
         stringInput.forEachIndexed { row, line ->
             line.forEachIndexed { x, c ->
-                this[Point(x, stringInput.lastIndex - row)] = c
+                this[Point(x, row)] = c
             }
         }
     })

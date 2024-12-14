@@ -15,7 +15,7 @@ class Day08 : UnparsedDay<Int, Int>(2024, 8) {
                 line.forEachIndexed { col, c ->
                     if (c != '.') {
                         val list = getOrPut(c) { mutableListOf() }
-                        list.add(Point(col, maxY - row))
+                        list.add(Point(col, row))
                     }
                 }
             }

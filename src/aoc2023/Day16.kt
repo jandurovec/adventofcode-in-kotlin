@@ -11,7 +11,7 @@ class Day16 : AdventDay<Pair<Map<Point, Char>, Pair<Int, Int>>, Int, Int>(2023, 
         val maxX = stringInput.first().lastIndex
         val grid = stringInput.flatMapIndexed { row: Int, s: String ->
             s.mapIndexed { col, c ->
-                Point(col, maxY - row) to c
+                Point(col, row) to c
             }
         }.associate { it }
         return grid to (maxX to maxY)
@@ -57,12 +57,12 @@ class Day16 : AdventDay<Pair<Map<Point, Char>, Pair<Int, Int>>, Int, Int>(2023, 
     }
 
     override fun part1(input: Pair<Map<Point, Char>, Pair<Int, Int>>, testArg: Any?) =
-        explore(input.first, Point(0, input.second.second) to Point.RIGHT)
+        explore(input.first, Point(0, 0) to Point.RIGHT)
 
     override fun part2(input: Pair<Map<Point, Char>, Pair<Int, Int>>, testArg: Any?): Int {
         val (grid, dimensions) = input
         val (maxX, maxY) = dimensions
-        val vertical = (0..maxX).flatMap { listOf(Point(it, 0) to Point.UP, Point(it, maxY) to Point.DOWN) }
+        val vertical = (0..maxX).flatMap { listOf(Point(it, 0) to Point.DOWN, Point(it, maxY) to Point.UP) }
         val horizontal = (0..maxY).flatMap { listOf(Point(0, it) to Point.RIGHT, Point(maxX, it) to Point.LEFT) }
         return (vertical + horizontal).maxOf { explore(grid, it) }
     }

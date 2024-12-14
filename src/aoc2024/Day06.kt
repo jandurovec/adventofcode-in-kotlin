@@ -46,8 +46,8 @@ class Day06 : AdventDay<Day06.Lab, Int, Int>(2024, 6) {
         stringInput.forEachIndexed { row, s ->
             s.forEachIndexed { col, chr ->
                 when (chr) {
-                    '#' -> obstructions.add(Point(col, maxY - row))
-                    '^' -> guard = Point(col, maxY - row)
+                    '#' -> obstructions.add(Point(col, row))
+                    '^' -> guard = Point(col, row)
                 }
             }
         }

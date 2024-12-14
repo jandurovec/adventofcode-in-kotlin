@@ -15,7 +15,7 @@ class Day22 : AdventDay<Grid<Char>, Int, Int>(2017, 22) {
     }
 
     override fun parseInput(stringInput: List<String>) = Grid(stringInput.flatMapIndexed { row, line ->
-        line.mapIndexed { col, c -> Point(col, stringInput.size - row - 1) to c }
+        line.mapIndexed { col, c -> Point(col, row) to c }
     }.associate { it })
 
     private fun Grid<Char>.simulate(steps: Int, stateTransitions: Map<Char, Char>, turn: (Char, Int) -> Int): Int {

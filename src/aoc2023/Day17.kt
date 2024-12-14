@@ -23,7 +23,7 @@ class Day17 : AdventDay<Day17.City, Int, Int>(2023, 17) {
         val maxY = stringInput.lastIndex
         val maxX = stringInput.first().lastIndex
         val grid = stringInput.flatMapIndexed { row: Int, s: String ->
-            s.mapIndexed { col, c -> Point(col, maxY - row) to c.digitToInt() }
+            s.mapIndexed { col, c -> Point(col, row) to c.digitToInt() }
         }.associate { it }
         return City(grid, maxX, maxY)
     }
@@ -48,10 +48,10 @@ class Day17 : AdventDay<Day17.City, Int, Int>(2023, 17) {
     }
 
     override fun part1(input: City, testArg: Any?) =
-        findPath(input, Point(0, input.maxY), Point(input.maxX, 0), 1..3)
+        findPath(input, Point(0, 0), Point(input.maxX, input.maxY), 1..3)
 
     override fun part2(input: City, testArg: Any?) =
-        findPath(input, Point(0, input.maxY), Point(input.maxX, 0), 4..10)
+        findPath(input, Point(0, 0), Point(input.maxX, input.maxY), 4..10)
 
     override fun testCases1() = listOf(TestCase(getTestInput(), 102))
 
