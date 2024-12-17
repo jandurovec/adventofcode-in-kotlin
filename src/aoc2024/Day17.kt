@@ -44,11 +44,11 @@ class Day17 : AdventDay<Day17.Computer, String, Long>(2024, 17) {
     override fun part1(input: Computer, testArg: Any?) = input.run().joinToString(",")
 
     /*
-        My Input does the following
+        The analyzed program does the following
            1) takes last 3 bits of register A (=> register B)
-           2) inverts them
+           2) stores B XOR X (X varies among inputs) to B
            3) takes 3 bits from position calculated in step 2 (=> register C)
-           4) (inverts bytes from step 1 back)
+           4) stores B XOR Y (Y varies among inputs) to B
            5) outputs "register B XOR register C"
            6) shifts register A by 3 bits to the right and repeat, until there's nothing left
 
@@ -64,6 +64,10 @@ class Day17 : AdventDay<Day17.Computer, String, Long>(2024, 17) {
             offset: Int = 0
         ): Sequence<Map<Int, Boolean>> =
             sequence {
+                val match =
+                    """2,4,1,([0-7]),7,5,1,([0-7]),4,[0-7],0,3,5,5,3,0""".toRegex().matchEntire(input.program.joinToString(","))
+                        ?: error("Program does not match the expected pattern")
+                val (x, y) = match.groupValues.drop(1).map { it.toInt() }
                 if (offset == program.size) {
                     if (known.filter { it.value }.keys.all { it < 3 * program.size }) {
                         yield(known)
@@ -74,11 +78,11 @@ class Day17 : AdventDay<Day17.Computer, String, Long>(2024, 17) {
                     (0..7).filter { it.matches(bMask) }.forEach { b ->
                         val newKnown = known.toMutableMap()
                         newKnown += b.toMask().map { (it.key + 3 * offset) to it.value }
-                        val cOffset = b xor 0b111
+                        val cOffset = b xor x
                         val cMask =
                             newKnown.map { (it.key - 3 * offset - cOffset) to it.value }.filter { it.first in 0..2 }
                                 .toMap()
-                        val expectedC = program[offset] xor b
+                        val expectedC = program[offset] xor cOffset xor y
                         if (expectedC.matches(cMask)) {
                             newKnown += expectedC.toMask().map { (it.key + 3 * offset + cOffset) to it.value }
                             yieldAll(findNumber(program, newKnown, offset + 1))
@@ -89,7 +93,7 @@ class Day17 : AdventDay<Day17.Computer, String, Long>(2024, 17) {
 
         return findNumber(input.program).map { bits ->
             bits.entries.fold(0L) { acc, (key, value) -> acc or (if (value) 1L shl key else 0) }
-        }.sorted().first()
+        }.min()
     }
 
 
